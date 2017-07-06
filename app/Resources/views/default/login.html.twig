@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{%  block styles %}
+{{ parent() }}
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="intro-header">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="intro-message">
+					<h1>Bem-vindo</h1>
+					<br>
+					<div class="container">
+						<div class="row">
+							<div class="col-md-offset-4 col-md-4">
+								{{ form_start(form) }}
+	            		{{ form_widget(form.tLogin) }}
+									{{ form_widget(form.tSenha) }}
+									<div class="wrapper">
+										<span class="group-btn">
+											{{ form_widget(form.save) }}
+											<!-- <i class="fa fa-sign-in"></i> -->
+										</span>
+									</div>
+								{{ form_end(form) }}
+
+							</div>
+						</div>
+					</div>
+					<hr class="intro-divider">
+					<!-- <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            </li>
+                        </ul> -->
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /.container -->
+</div>
+
+{% endblock %}
+
+{% block contato %}
+{% endblock %}
