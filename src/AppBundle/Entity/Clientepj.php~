@@ -1,0 +1,61 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Clientepj
+ *
+ * @ORM\Table(name="clientePj")
+ * @ORM\Entity
+ */
+class Clientepj
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNomeFantasia", type="string", length=150, nullable=false)
+     */
+    private $tnomefantasia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tCpfResponsavel", type="string", length=15, nullable=false)
+     */
+    private $tcpfresponsavel;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dCadastro", type="datetime", nullable=false)
+     */
+    private $dcadastro = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tRazaoSocial", type="string", length=150, nullable=false)
+     */
+    private $trazaosocial;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tCnpj", type="string", length=18, nullable=false)
+     */
+    private $tcnpj;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

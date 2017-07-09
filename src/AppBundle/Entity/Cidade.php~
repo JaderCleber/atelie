@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Cidade
+ *
+ * @ORM\Table(name="cidade", uniqueConstraints={@ORM\UniqueConstraint(name="tIbge", columns={"tIbge"})})
+ * @ORM\Entity
+ */
+class Cidade
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNome", type="string", length=100, nullable=false)
+     */
+    private $tnome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tIbge", type="string", length=7, nullable=false)
+     */
+    private $tibge;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idEstado", type="integer", nullable=false)
+     */
+    private $idestado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

@@ -1,0 +1,89 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Funcionario
+ *
+ * @ORM\Table(name="funcionario", uniqueConstraints={@ORM\UniqueConstraint(name="tCpf", columns={"tCpf"})})
+ * @ORM\Entity
+ */
+class Funcionario
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNome", type="string", length=150, nullable=false)
+     */
+    private $tnome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idSexo", type="integer", nullable=false)
+     */
+    private $idsexo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idEstadoCivil", type="integer", nullable=false)
+     */
+    private $idestadocivil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tCpf", type="string", length=15, nullable=false)
+     */
+    private $tcpf;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dNascimento", type="date", nullable=false)
+     */
+    private $dnascimento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNacionalidade", type="string", length=100, nullable=false)
+     */
+    private $tnacionalidade;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNaturalidade", type="string", length=100, nullable=false)
+     */
+    private $tnaturalidade;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dCadastro", type="datetime", nullable=false)
+     */
+    private $dcadastro = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tRg", type="string", length=9, nullable=false)
+     */
+    private $trg;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

@@ -1,0 +1,68 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Endereco
+ *
+ * @ORM\Table(name="endereco")
+ * @ORM\Entity
+ */
+class Endereco
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idCidade", type="integer", nullable=false)
+     */
+    private $idcidade;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tEndereco", type="string", length=100, nullable=false)
+     */
+    private $tendereco;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tCep", type="string", length=9, nullable=false)
+     */
+    private $tcep;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNumero", type="string", length=15, nullable=false)
+     */
+    private $tnumero;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tComplemento", type="string", length=150, nullable=false)
+     */
+    private $tcomplemento;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tObservacao", type="string", length=255, nullable=false)
+     */
+    private $tobservacao;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

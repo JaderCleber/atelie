@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Pais
+ *
+ * @ORM\Table(name="pais", uniqueConstraints={@ORM\UniqueConstraint(name="tNome", columns={"tNome", "tBacen", "tCod"})})
+ * @ORM\Entity
+ */
+class Pais
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tNome", type="string", length=100, nullable=false)
+     */
+    private $tnome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tBacen", type="string", length=10, nullable=false)
+     */
+    private $tbacen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tCod", type="string", length=10, nullable=false)
+     */
+    private $tcod;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
