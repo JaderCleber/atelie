@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'default/app-main.html.twig' %}
 
 {%  block styles %}
 {{ parent() }}
@@ -22,7 +22,9 @@
 
 {% block body %}
 <div class="content-section-b">
-
+    {% block bodyapp %}
+    {{ parent() }}
+    {% endblock %}
     <div class="container">
 
       <div class="row">
@@ -31,108 +33,45 @@
             </h1>
         </div>
 
-        <!-- Botao para o controle de clientes -->
-        <a href="{{ path('app_clientes')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3><img src="img/i.png"></i> Status dos Caixas</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>Loja 1 - Caixa A </p>
-                    </div>
-                </div>
-            </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="container">
-
-      <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><font style="background-color:#000; color:#fff;">Controle dos Caixas</font>
-            </h1>
+        <!-- listagem dos caixas cadastrados e ativos -->
+        <div class="col-md-3">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <img src="img/i.png">
+                  <h3> Caixas </h3>
+              </div>
+              <div class="panel-body">
+                  <button class="btn btn-primary" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 1 - Caixa A </button>
+                  <button class="btn btn-danger" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 1 - Caixa B </button>
+                  <button class="btn btn-success" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 1 - Caixa C </button>
+                  <button class="btn btn-success" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 1 - Caixa D </button>
+                  <button class="btn btn-success" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 2 - Caixa A </button>
+                  <button class="btn btn-primary" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 2 - Caixa B </button>
+                  <button class="btn btn-danger" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 3 - Caixa A </button>
+                  <button class="btn btn-danger" onclick="carregaSobre(1)" style="margin-bottom: 10px;">Loja 4 - Caixa A </button>
+              </div>
+              <div class="panel-body">
+                <button class="btn btn-default">Novo Caixa</button>
+              </div>
+          </div>
         </div>
 
-        <!-- Botao para o controle de produtos -->
-        <a href="{{ path('app_produtos')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Produtos</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
+        <!-- controle de caixa selecionado ao lado -->
+        <div class="col-md-9">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3> Sobre o Caixa </h3>
+              </div>
+              <div class="panel-body" id="sobre-caixa">
+                Ao lado, clique no caixa que deseja visualizar as informações neste momento
+              </div>
 
-        <!-- Botao para o controle de funcionarios -->
-        <a href="{{ path('app_funcionarios')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Funcionários</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Botao para o controle de empresas -->
-        <a href="{{ path('app_empresas')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Empresas</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Botao para o controle de caixa -->
-        <a href="{{ path('app_caixa')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Caixa</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Botao para controle de Pedidos/Encomendas -->
-        <a href="{{ path('app_pedidos')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Pedidos/Encomendas</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-
-        <a href="{{ path('app_clientes')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Clientes</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="{{ path('app_clientes')}}" style="text-align: center;">
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><img src="img/i.png"></i> Clientes</h4>
-                    </div>
-                </div>
-            </div>
-        </a>
-      </div>
+              <div class="panel-body" id="sobre-caixa">
+                Ao lado, clique no caixa que deseja visualizar as informações neste momento
+              </div>
+          </div>
+        </div>
     </div>
-    <!-- /.container -->
 </div>
     <!-- /.content-section-b -->
 {% endblock %}
