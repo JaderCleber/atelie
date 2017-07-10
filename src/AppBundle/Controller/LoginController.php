@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Usuario;
+use AppBundle\Dao\DaoUsuario;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,39 +55,21 @@ class LoginController extends Controller
           try {
             $dao = new DaoUsuario ();
       			$dao->setOperacao ( '3' );
-      			$dao->setEmail ( $form ['temail']->getData () );
-      			$dao->setSenha ( $form ['tsenha']->getData () );
+      			$dao->setLogin ( $form ['tLogin']->getData () );
+      			$dao->setSenha ( $form ['tSenha']->getData () );
       			$usuario = $dao->exec ( $this->getDoctrine ()->resetManager () );
 
-      			$idUsuario = 0;
-      			$notificacao = Notificacao::N01;
-      			$route = 'notificacao';
-      			if (! is_array ( json_decode ( $usuario, true ) ))
-      				$notificacao = $usuario;
-      			else {
-      				$usuario = json_decode ( $usuario, true );
-      				if ($usuario ['tcodativacao'] != "")
-      					$notificacao = Notificacao::N02;
-      				else {
-      					$idUsuario = $usuario ['id'];
-      					$route = 'app_principal';
-      				}
+      			if (is_int ( $usuario )){
+              $_SESSION ['idUsuario'] = $usuario;
+              return $this->redirectToRoute ( 'app_main' );
+      			} else {
+              die($usuario);
       			}
       		} catch ( \Exception $e ) {
-      			return Notificacao::N00;
+      			die('Algum erro aconteceu comigo. Sinto muito.');
       		}
-
-          $notificacao = $response ['parametros'] ['notificacao'];
-    			$idUsuario = $response ['parametros'] ['idUsuario'];
-
-    			$_SESSION ['idUsuario'] = $idUsuario;
-    			if ($idUsuario == 0)
-    				return $this->redirectToRoute ( $response ['route'], [
-    						'msn' => $notificacao
-    				] );
-    			else
-    				return $this->redirectToRoute ( $response ['route'] );
     		}
+
         return $this->render('default/login.html.twig', array('form'=>$form->createView ()));
       } catch (Exception $e) {
         die(var_dump($e));

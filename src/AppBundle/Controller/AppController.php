@@ -19,10 +19,12 @@ use Symfony\Component\HttpFoundation\Request;
 class AppController extends Controller
 {
     /**
-     * @Route("/app", name="app")
+     * @Route("/app", name="app_main")
      */
     public function indexApp(Request $request)
     {
-        return $this->render('default/index.html.twig');
+        return $this->render('default/app-main.html.twig', [
+          'session' => $_SESSION
+        ]);
     }
 }
