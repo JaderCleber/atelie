@@ -168,4 +168,54 @@ class AppClientesController extends Controller
       die(var_dump($e));
     }
   }
+
+  /**
+  * @Route("/api/clientes/pesquisa", name="api_pesquisar_clientes")
+  * @method("POST")
+  */
+
+  public function pesquisarClientes(Request $request){
+    try {
+      $em = $this->getDoctrine()->getManager();
+
+      $tipo = $request->request->get('tipo');
+      $cpf = $request->request->get('cpf');
+      $cnpj = $request->request->get('cnpj');
+      $razao = $request->request->get('razao');
+      $cpfresponsavel = $request->request->get('cpfresponsavel');
+      $nome = $request->request->get('nome');
+
+      if ($tipo == 1){
+        $query = $em->createQuery ( 'SELECT c
+          FROM AppBundle:Clientepf c
+          WHERE c.tcpf = :cpf or c.tnome like :nome
+          ORDER BY c.tnome ASC' )
+        ->setParameter('cpf', $cpf)
+        ->setParameter('nome', $nome);
+        $empresas = $query->getResult ();
+      } else {
+        $query = $em->createQuery ( 'SELECT c
+          FROM AppBundle:Clientepj c
+          WHERE c.tcpfresponsavel = :cpf
+            or c.trazaosocial like :razao
+
+            or c.cnpj = :cnpj
+          ORDER BY c.trazaosocial ASC' )
+        ->setParameter('cpf', $cpfresponsavel)
+        ->setParameter('razaosocial', $razao)
+        ->setParameter('cnpj', $cnpj);
+        $empresas = $query->getResult ();
+      }
+
+      if(!$empresas)
+        die("Nenhum resultado encontrado");
+
+      $retorno = "";
+      foreach ($empresas as &$empresa) {
+        $retorno .= ""
+      }
+    } catch (Exception $e) {
+      die(var_dump($e));
+    }
+  }
 }

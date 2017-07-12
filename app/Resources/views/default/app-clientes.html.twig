@@ -29,61 +29,94 @@
 
     <div class="row">
       <!-- AREA DE PESQUISA DE CLIENTES -->
-      <div class="col-md-12">
+      <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             <img src="img/i.png">
             <h3> Encontrar Clientes </h3>
           </div>
 
-          <!--  -->
           <div class="panel-body">
-            <dv class="col-md-3">
-              <div class="form-group">
-                <div class="form-group required">
+            <div class="form-group">
+              <label class="control-label">Tipo de Cliente </label>
+              <!-- SELECIONA O TIPO DE CLIENTE PF OU PJ  -->
+              <div class="form-group"  style="margin-bottom: 10px">
+                <label class="inline">
+                  <input checked type="radio" id="pesquisa-1"
+                    name="status" value="1" style="margin-bottom: 10px"
+                    onchange="mudaTipoClientePesquisa()">
+                  P Física
+                </label>
+                <label class="inline">
+                  <input checked type="radio" id="pesquisa-2"
+                    name="status" value="2" style="margin-bottom: 10px"
+                    onchange="mudaTipoClientePesquisa()">
+                  P Jurídica
+                </label>
+                <!-- <label class="radio-inline">
+                  <input type="radio" id="pesquisa-0" name="status" value="0" style="margin-bottom: 10px">
+                  Irrelevante
+                </label> -->
+              </div>
 
-                  <!-- SELECIONA O TIPO DE CLIENTE PF OU PJ  -->
-                  <label class="control-label col-md-4  requiredField">Tipo de Cliente </label>
-                  <div class="controls col-md-8 "  style="margin-bottom: 10px">
-                    <label class="radio-inline">
-                      <input checked type="radio" id="pesquisa-1" name="status" value="1"  style="margin-bottom: 10px">
-                      Pessoa Física
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" id="pesquisa-2" name="status" value="2"  style="margin-bottom: 10px">
-                      Pessoa Jurídica
-                    </label>
-                    <!-- <label class="radio-inline">
-                    <input type="radio" id="pesquisa-0" name="status" value="0" style="margin-bottom: 10px">
-                    Irrelevante
-                  </label> -->
+              <!-- AREA PARA INFORMAR OS CAMPOS PARA PESQUISA POR PF -->
+              <div id="pesquisa-pessoa-fisica">
+                <!--  INFORMAR O CPF DO CLIENTE PF -->
+                <label class="control-label"> CPF </label>
+                <div>
+                  <input class="input-md textinput textInput" id="pf-cpf" placeholder="CPF do cliente aqui" style="margin-bottom: 10px" type="text" />
                 </div>
 
-                <!-- AREA PARA INFORMAR OS CAMPOS PARA PESQUISA POR PF -->
-                <div id="pesquisa-pessoa-fisica">
-
-                  <!--  INFORMAR O CPF DO CLIENTE PF -->
-                  <label class="control-label col-md-4"> CPF </label>
-                  <div class="controls col-md-8 ">
-                    <input class="input-md textinput textInput form-control" id="pf-cpf" placeholder="Informe o CPF do cliente aqui" style="margin-bottom: 10px" type="text" />
-                  </div>
-
-                  <!-- INFORMAR O NOME DO CLIENTE PF -->
-                  <label class="control-label col-md-4"> NOME </label>
-                  <div class="controls col-md-8 ">
-                    <input class="input-md textinput textInput form-control" id="pf-cpf" placeholder="Informe o CPF do cliente aqui" style="margin-bottom: 10px" type="text" />
-                  </div>
+                <!-- INFORMAR O NOME DO CLIENTE PF -->
+                <label class="control-label"> NOME </label>
+                <div>
+                  <input class="input-md textinput textInput" id="pf-nome" placeholder="Nome do cliente aqui" style="margin-bottom: 10px" type="text" />
                 </div>
               </div>
+
+              <!-- AREA PARA INFORMAR OS CAMPOS PARA PESQUISA POR PJ -->
+              <div id="pesquisa-pessoa-juridica" style="display: none;">
+                <!--  INFORMAR O CNPJ DO CLIENTE PJ -->
+                <label class="control-label"> CNPJ </label>
+                <div>
+                  <input class="input-md textinput textInput" id="pj-cnpj" placeholder="CNPJ do cliente aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+
+                <!-- INFORMAR A RAZAO SOCIAL DO CLIENTE PJ -->
+                <label class="control-label"> RAZÃO SOCIAL </label>
+                <div>
+                  <input class="input-md textinput textInput" id="pj-razao-social" placeholder="Razão Social do cliente aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+
+                <!--  INFORMAR O CPF DO CLIENTE PJ -->
+                <label class="control-label"> CPF RESPONSÁVEL </label>
+                <div>
+                  <input class="input-md textinput textInput" id="pj-cpf" placeholder="CPF do responsavel aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
             </div>
-            </div>
-            <button class="btn btn-primary" onclick="carregaCliente(1)" style="margin-bottom: 10px;">
+            <button class="btn btn-primary" onclick="pesquisarClientes()" style="margin-bottom: 10px;">
               Pesquisar
-          </button>
-        </div>
-        <div class="panel-body">
-          <button class="btn btn-default" onclick="carregaCliente(0)">Novo Cliente</button>
-        </div>
+            </button>
+          </div>
+          <div class="panel-body">
+            <button class="btn btn-default" onclick="carregaCliente(0)">Novo Cliente</button>
+          </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="col-md-8">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <img src="img/i.png">
+              <h3> Controle </h3>
+          </div>
+          <div class="panel-body">
+            Ao lado, encontre ou clique para inserir um Cliente
+
+          </div>
       </div>
     </div>
   </div>
@@ -115,6 +148,41 @@ function carregaCliente(id){
     type : "POST",
     url : '{{path('api_controle_cliente')}}',
     data: {id:id},
+    success : function(data) {
+      $("#controle-cliente").html(data);
+    },
+    error : function(request, status, error) {
+      $("#controle-cliente").html(request.responseText);
+      //notificar('center', 'error', request.responseText, 2500);
+    }
+  });
+}
+
+function mudaTipoClientePesquisa(){
+  if ($("#pesquisa-1").is(":checked")){
+    $("#pesquisa-pessoa-juridica").fadeOut("fast");
+    $("#pesquisa-pessoa-fisica").fadeIn("slow");
+  } else {
+    $("#pesquisa-pessoa-fisica").fadeOut("fast");
+    $("#pesquisa-pessoa-juridica").fadeIn("slow");
+  }
+}
+
+function pesquisarClientes(){
+  var tipo = $("#pesquisa-1").is(":checked")?1:2;
+  alert(tipo);
+  return;
+  $.ajax({
+    type : "POST",
+    url : '{{path('api_pesquisar_clientes')}}',
+    data: {
+      tipo:tipo,
+      cpf:$("#pf-cpf").val(),
+      cnpj:$("#pj-cnpj").val(),
+      razao:$("#pj-razao-social").val(),
+      cpfresponsavel:$("#pj-cpf").val(),
+      nome:$("#pf-nome").val()
+    },
     success : function(data) {
       $("#controle-cliente").html(data);
     },
