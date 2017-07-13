@@ -210,10 +210,73 @@ class AppClientesController extends Controller
       if(!$empresas)
         die("Nenhum resultado encontrado");
 
-      $retorno = "";
+      $retorno = "<div class=\"method\">
+        <!-- CAMPOS -->
+        <div class=\"row margin-0 list-header hidden-sm hidden-xs\">";
+      if ($tipo == 1)
+        $retorno .= "<div class=\"col-md-5\"><div class=\"header\">NOME DO CLIENTE</div></div>
+        <div class=\"col-md-3\"><div class=\"header\">CPF</div></div>";
+      else
+        $retorno .= "<div class=\"col-md-4\"><div class=\"header\">RAZÃO SOCIAL</div></div>
+          <div class=\"col-md-3\"><div class=\"header\">CNPJ</div></div>
+          <div class=\"col-md-3\"><div class=\"header\">NOME FANTASIA</div></div>
+          <div class=\"col-md-2\"><div class=\"header\">CPF RESPONSAVEL</div></div> ";
+
+      $retorno .= "</div>
+      <!-- REGISTROS -->
+      <div class=\"row margin-0\">";
+
       foreach ($empresas as &$empresa) {
-        $retorno .= ""
+        if ($tipo == 1) {
+          $retorno .= "<div class=\"col-md-5\">
+              <div class=\"cell\">
+                  <div class=\"propertyname\">
+                      ".$emprsa->getTnome()."
+                  </div>
+              </div>
+          </div>
+          <div class=\"col-md-3\">
+              <div class=\"cell\">
+                  <div class=\"type\">
+                      <code>".$emprsa->getTcpf()."</code>
+                  </div>
+              </div>
+          </div>";
+        } else {
+          $retorno .= "<div class=\"col-md-4\">
+              <div class=\"cell\">
+                  <div class=\"propertyname\">
+                      ".$emprsa->getTrazaosocial()."
+                  </div>
+              </div>
+          </div>
+          <div class=\"col-md-3\">
+              <div class=\"cell\">
+                  <div class=\"propertyname\">
+                      ".$emprsa->getTnomefantasia()."
+                  </div>
+              </div>
+          </div>
+          <div class=\"col-md-3\">
+              <div class=\"cell\">
+                  <div class=\"type\">
+                      <code>".$emprsa->getTcnpj()."</code>
+                  </div>
+              </div>
+          </div>
+          <div class=\"col-md-2\">
+              <div class=\"cell\">
+                  <div class=\"type\">
+                      <code>".$emprsa->getTcpfresponsavel()."</code>
+                  </div>
+              </div>
+          </div>";
+        }
+
       }
+
+      $retorno .= "</div></div>";
+      die($retorno);
     } catch (Exception $e) {
       die(var_dump($e));
     }
