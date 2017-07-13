@@ -15,7 +15,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Cliente;
+use AppBundle\Entity\Clientepf;
+use AppBundle\Entity\Clientepj;
 
 class AppClientesController extends Controller
 {
@@ -39,19 +40,27 @@ class AppClientesController extends Controller
       $em = $this->getDoctrine()->getManager();
 
       if ($request->request->get('id') == 0){
-        $empresa = new Empresa();
-        $cliente->setIdstatus(2);
+        if ($request->request->get('tipo') == 1) {
+          $cliente = new ClientePF();
+        } else {
+          $cliente = new ClientePJ();
+        }
       } else {
-        $cliente = $em->createQuery ( 'SELECT e
-          FROM AppBundle:Cliente e
-          WHERE e.id = :id' )
-          ->setParameter ( 'id', $request->request->get('id') )->getOneOrNullResult ();
-        if (!$cliente) {
-          die("Não consegui encontrar os dados sobre a cliente. Por favor, utilize a tecla F5");
+        if ($request->request->get('tipo') == 1) {
+          $cliente = $em->createQuery ( 'SELECT e
+            FROM AppBundle:ClientePF e
+            WHERE e.id = :id' )
+            ->setParameter ( 'id', $request->request->get('id') )->getOneOrNullResult ();
+        } else {
+          $cliente = $em->createQuery ( 'SELECT e
+            FROM AppBundle:ClientePJ e
+            WHERE e.id = :id' )
+            ->setParameter ( 'id', $request->request->get('id') )->getOneOrNullResult ();
         }
 
+        if (!$cliente)
+            die("Não consegui encontrar os dados sobre a cliente. Por favor, utilize a tecla F5");
       }
-
       $retorno = "<form  action=\"/api/cliente/dao\"  class=\"form-horizontal\" method=\"post\" >
         <div class=\"form-group\">
           <label class=\"control-label col-md-4\"> Código </label>

@@ -115,6 +115,127 @@
           </div>
           <div class="panel-body" id="controle-cliente">
             Ao lado, encontre ou clique para inserir um Cliente
+            <form  action="/api/cliente/dao"  class="form-horizontal" method="post" >
+
+              <!--  -->
+              <div class="form-group">
+                <label class="control-label col-md-4"> Código </label>
+                <div class="controls col-md-2 ">
+                  <input readOnly name="id" value="" class="input-md textinput textInput form-control" id="id" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField"> Nome <span class="asteriskField">*</span> </label>
+                <div class="controls col-md-8 ">
+                  <input name="nome-fantasia" value="" class="input-md textinput textInput form-control" id="nome"
+                    placeholder="O Nome do cliente aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField">SEXO<span class="asteriskField">*</span> </label>
+                <div class="controls col-md-8 "  style="margin-bottom: 10px">
+                  <label class="radio-inline">
+                    <input checked type="radio" name="sexo" value="1"  style="margin-bottom: 10px">
+                    Masculino
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="sexo" value="2"  style="margin-bottom: 10px">
+                    Feminino
+                  </label>
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField">ESTADO CIVIL</label>
+                <div class="controls col-md-8 "  style="margin-bottom: 10px">
+                  <select name="estado-civil" style="margin-bottom: 10px" id="estado-civil">
+                    <option value="1">Solteiro</option>
+                    <option value="2">Casado</option>
+                    <option value="3">Viúvo</option>
+                  </select>
+                  </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField"> RG</label>
+                <div class="controls col-md-8 ">
+                  <input name="rg" value="" class="input-md textinput textInput form-control" id="rg"
+                    placeholder="O RG do cliente aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField"> CPF<span class="asteriskField">*</span> </label>
+                <div class="controls col-md-8 ">
+                  <input name="cpf" value="" class="input-md textinput form-control" id="cpf"
+                    placeholder="A CPF do cliente aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField"> NACIONALIDADE</label>
+                <div class="controls col-md-8 ">
+                  <input name="nacionalidade" value="" class="input-md textinput form-control" id="nacionalidade"
+                    placeholder="O País onde o cliente nasceu aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField"> NATURALIDADE </label>
+                <div class="controls col-md-8 ">
+                  <input name="naturalidade" value="" class="input-md textinput form-control" id="naturalidade"
+                    placeholder="A Cidade onde o cliente nasceu aqui" style="margin-bottom: 10px" type="text" />
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group required">
+                <label class="control-label col-md-4  requiredField"> Aniversário </label>
+                <div class="controls col-md-8 ">
+                  <label class="inline">
+                    <select name="dia" style="margin-bottom: 10px" id="dia">
+                      <option value="0">DIA</option>
+                      <option value="1">01</option>
+                      <option value="2">02</option>
+                      <option value="3">03</option>
+                    </select>
+
+                    <!--  -->
+                    <select name="mes" style="margin-bottom: 10px" id="dia">
+                      <option value="0">MES</option>
+                      <option value="1">01</option>
+                      <option value="2">02</option>
+                      <option value="3">03</option>
+                    </select>
+
+                    <!--  -->
+                    <select name="ano" style="margin-bottom: 10px" id="dia">
+                      <option value="0">ANO</option>
+                      <option value="1995">01</option>
+                      <option value="2">02</option>
+                      <option value="3">03</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <!--  -->
+              <div class="form-group">
+                <div class="aab controls col-md-4 "></div>
+                <div class="controls col-md-8 ">
+                  <input type="submit" name="Signup" value="Salvar" class="btn btn-primary btn-lg btn-info" />
+                </div>
+              </div>
+            </form>
           </div>
       </div>
     </div>
@@ -130,10 +251,14 @@
 <script type="text/javascript">
 mudaTipoClientePesquisa();
 function carregaCliente(id){
+  var tipo = $("#pesquisa-1").is(":checked")?1:2;
   $.ajax({
     type : "POST",
     url : '{{path('api_controle_cliente')}}',
-    data: {id:id},
+    data: {
+      id:id,
+      tipo:tipo
+    },
     success : function(data) {
       $("#controle-cliente").html(data);
     },
@@ -156,8 +281,6 @@ function mudaTipoClientePesquisa(){
 
 function pesquisarClientes(){
   var tipo = $("#pesquisa-1").is(":checked")?1:2;
-  alert(tipo);
-  return;
   $.ajax({
     type : "POST",
     url : '{{path('api_pesquisar_clientes')}}',
